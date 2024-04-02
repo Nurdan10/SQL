@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/nurda/Downloads/SQL/chinook.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="3862"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:maintracks"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="albums" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="63"/><column index="2" value="300"/><column index="3" value="61"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="artists" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="61"/><column index="2" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tracks" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="58"/><column index="2" value="300"/><column index="3" value="63"/><column index="4" value="92"/><column index="5" value="61"/><column index="6" value="300"/><column index="7" value="86"/><column index="8" value="63"/><column index="9" value="67"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT albums.Title, artists.Name FROM artists
+INNER JOIN albums
+ON albums.ArtistId=artists.ArtistId;
+
+SELECT tracks.Name, genres.Name FROM tracks
+INNER JOIN genres
+ON genres.GenreId=tracks.GenreId;
+
+SELECT invoices.InvoiceId, customers.FirstName FROM invoices
+INNER JOIN customers
+ON invoices.CustomerId=customers.CustomerId;
+
+SELECT tracks.Name as parca_ismi, composer, albums.Title as album_ismi, media_types.Name as media_türü, genres.Name as muzik_türü FROM tracks
+INNER JOIN albums ON tracks.AlbumId=albums.AlbumId
+INNER JOIN media_types ON tracks.MediaTypeId=media_types.MediaTypeId
+INNER JOIN genres ON tracks.GenreId=genres.GenreId;
+
+
+SELECT artists.Name, albums.Title FROM artists
+INNER JOIN albums ON albums.ArtistId=artists.ArtistId;
+
+SELECT artists.Name, albums.Title FROM artists
+LEFT JOIN albums ON albums.ArtistId=artists.ArtistId;
+
+SELECT tracks.Name, genres.Name FROM tracks JOIN genres
+ON genres.GenreId=tracks.GenreId;
+
+SELECT tracks.Name, genres.Name FROM tracks 
+LEFT JOIN genres
+ON genres.GenreId=tracks.GenreId;
+
+SELECT tracks.Name, genres.Name FROM genres 
+LEFT JOIN tracks-******
+ON genres.GenreId=tracks.GenreId;
+
+SELECT name, surname, salary FROM carsalesEmployees WHERE name=&quot;Rubie&quot;;
+
+SELECT name, surname, salary from carsalesEmployees 
+WHERE salary&gt;(SELECT salary FROM carsalesEmployees WHERE name=&quot;Rubie&quot;);
+
+SELECT name, surname, salary from carsalesEmployees 
+WHERE salary&gt;(SELECT salary FROM carsalesEmployees WHERE name=&quot;Rubie&quot;) ORDER BY salary;
+
+SELECT TrackId, name, AlbumId from tracks WHERE AlbumId=
+(SELECT AlbumId FROM albums WHERE Title=&quot;Faceless&quot;);
+----
+SELECT tracks.TrackId, tracks.Name, tracks.AlbumId from tracks 
+INNER JOIN albums ON tracks.AlbumId=albums.AlbumId 
+WHERE Title=&quot;Faceless&quot;;
+
+SELECT TrackId, name, AlbumId from tracks 
+WHERE AlbumId IN(SELECT AlbumId FROM albums WHERE Title=&quot;Faceless&quot; OR Title=&quot;Let There Be Rock&quot;);
+
+SELECT name, AlbumId from tracks WHERE AlbumId IN(SELECT AlbumId from albums WHERE Title like &quot;A%&quot;);
+
+--hangi artist hangi albumu cikartti
+SELECT artists.name, albums.Title FROM artists
+INNER JOIN albums ON albums.ArtistId=artists.ArtistId;
+
+--hangi artist kac tane album cikartti
+SELECT artists.Name, albums.AlbumId FROM albums
+INNER JOIN artists ON albums.ArtistId=artists.ArtistId;
+
+--albumu olamayan Artist
+SELECT artists.name, albums.Title FROM artists
+LEFT JOIN albums ON albums.ArtistId=artists.ArtistId
+where albums.Title is NULL;
+
+SELECT artists.name as atrist_ismi, count(albums.Title) as album_sayisi FROM artists
+INNER JOIN albums ON albums.ArtistId=artists.ArtistId GROUP BY artists.Name HAVING album_sayisi&gt;10;
+
+SELECT InvoiceDate, sum(total) as toplam, BillingCountry FROM invoices WHERE InvoiceDate&gt;&quot;2011-01-01&quot; GROUP BY BillingCountry HAVING toplam&gt;50 ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
